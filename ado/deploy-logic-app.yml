@@ -9,6 +9,13 @@ steps:
   - checkout: self
     persistCredentials: true
   - template: print-env.yml
+  - task: PowerShell@2
+    displayName: Print directory tree
+    inputs:
+      workingDirectory: $(System.ArtifactsDirectory)
+      targetType: inline
+      script: |
+        tree /F
   - task: AzureCLI@2
     displayName: Install Azure CLI Logic Apps extension
     inputs:
