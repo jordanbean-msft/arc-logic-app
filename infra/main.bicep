@@ -2,8 +2,8 @@ param appName string
 param environment string
 param region string
 param location string = resourceGroup().location
-param kubernetesEnvironmentName string
-param kubeEnvironmentProfileName string
+// param kubernetesEnvironmentName string
+// param kubeEnvironmentProfileName string
 
 module names 'resource-names.bicep' = {
   name: 'resource-names'
@@ -32,26 +32,26 @@ module storageDeployment 'storage.bicep' = {
   }
 }
 
-module appServicePlanDeployment 'app-service-plan.bicep' = {
-  name: 'app-service-plan-deployment'
-  params: {
-    appServicePlanName: names.outputs.appServicePlanName
-    location: location
-    kubernetesEnvironmentName: kubernetesEnvironmentName
-    kubeEnvironmentProfileName: kubeEnvironmentProfileName
-    logAnalyticsWorkspaceName: loggingDeployment.outputs.logAnalyticsWorkspaceName
-  }
-}
+// module appServicePlanDeployment 'app-service-plan.bicep' = {
+//   name: 'app-service-plan-deployment'
+//   params: {
+//     appServicePlanName: names.outputs.appServicePlanName
+//     location: location
+//     kubernetesEnvironmentName: kubernetesEnvironmentName
+//     kubeEnvironmentProfileName: kubeEnvironmentProfileName
+//     logAnalyticsWorkspaceName: loggingDeployment.outputs.logAnalyticsWorkspaceName
+//   }
+// }
 
-module logicAppDeployment 'logic-app.bicep' = {
-  name: 'logic-app-deployment'
-  params: {
-    location: location
-    storageAccountName: storageDeployment.outputs.storageAccountName
-    appServicePlanName: appServicePlanDeployment.outputs.appServicePlanName
-    appInsightsName: loggingDeployment.outputs.appInsightsName
-    logicAppName: names.outputs.logicAppName
-    logAnalyticsWorkspaceName: loggingDeployment.outputs.logAnalyticsWorkspaceName
-    kubernetesEnvironmentName: kubernetesEnvironmentName
-  }
-}
+// module logicAppDeployment 'logic-app.bicep' = {
+//   name: 'logic-app-deployment'
+//   params: {
+//     location: location
+//     storageAccountName: storageDeployment.outputs.storageAccountName
+//     appServicePlanName: appServicePlanDeployment.outputs.appServicePlanName
+//     appInsightsName: loggingDeployment.outputs.appInsightsName
+//     logicAppName: names.outputs.logicAppName
+//     logAnalyticsWorkspaceName: loggingDeployment.outputs.logAnalyticsWorkspaceName
+//     kubernetesEnvironmentName: kubernetesEnvironmentName
+//   }
+// }

@@ -32,24 +32,25 @@
                     "body": {
                         "To": "jordanbean@microsoft.com",
                         "Subject": "@body('Parse_JSON')?['Subject']",
-                        "Body": "<p>Body: @{body('Parse_JSON')?['Body']}<br>\nBlob Creation Time:@{body('Uploads_a_Blob_to_Azure_Storage')?['properties']?['created']}<br>\n</p>",
+                        "Body": "<p>Body: @{body('Parse_JSON')?['Body']}<br>\nBlob Creation Time:@{body('Upload_a_Blob_to_Azure_Storage')?['properties']?['created']}<br>\n</p>",
                         "Importance": "Normal"
                     },
                     "path": "/v2/Mail"
                 },
                 "runAfter": {
-                    "Uploads_a_Blob_to_Azure_Storage": [
+                    "Upload_a_Blob_to_Azure_Storage": [
                         "Succeeded"
                     ]
                 }
             },
-            "Uploads_a_Blob_to_Azure_Storage": {
+            "Upload_a_Blob_to_Azure_Storage": {
                 "type": "ServiceProvider",
                 "inputs": {
                     "parameters": {
                         "containerName": "logicapp",
                         "blobName": "@{body('Parse_JSON')?['Subject']}.txt",
-                        "content": "@body('Parse_JSON')?['Body']"
+                        "content": "@body('Parse_JSON')?['Body']",
+                        "overrideIfExists": true
                     },
                     "serviceProviderConfiguration": {
                         "connectionName": "AzureBlob",
