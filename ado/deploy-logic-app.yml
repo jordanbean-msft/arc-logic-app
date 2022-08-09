@@ -9,13 +9,6 @@ steps:
   - checkout: self
     persistCredentials: true
   - template: print-env.yml
-  - task: PowerShell@2
-    displayName: Print directory tree
-    inputs:
-      workingDirectory: $(Agent.BuildDirectory)
-      targetType: inline
-      script: |
-        tree /F
   - task: AzureCLI@2
     displayName: Install Azure CLI Logic Apps extension
     inputs:
@@ -31,4 +24,4 @@ steps:
       scriptType: ps
       scriptLocation: inlineScript
       inlineScript:  |
-        az logicapp deployment source config-zip --name ${{ parameters.logicAppName }} --resource-group ${{ parameters.resourceGroupName }} --src $(System.ArtifactsDirectory)/${{ parameters.buildPipelineName }}/${{ parameters.artifactName}}/${{ parameters.artifactName}}.zip
+        az logicapp deployment source config-zip --name ${{ parameters.logicAppName }} --resource-group ${{ parameters.resourceGroupName }} --src $(Agent.BuildDirectory)/${{ parameters.buildPipelineName }}/${{ parameters.artifactName}}/${{ parameters.artifactName}}.zip
