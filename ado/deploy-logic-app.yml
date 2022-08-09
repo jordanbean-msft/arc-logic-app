@@ -7,7 +7,7 @@ parameters:
 steps:
   - checkout: self
     persistCredentials: true
-  - download: current
+  - download: build-pipeline
     artifact: ${{ parameters.artifactName }}
   - template: print-env.yml
   - task: AzureCLI@2

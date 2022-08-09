@@ -5,13 +5,16 @@ variables:
   - template: env/dev.parameters.yml
   - template: variables.yml
 
+trigger: 
+  - none
+
 resources:
   pipelines:
   - pipeline: build-pipeline
     source: build-logic-app
     trigger:
-      stages:
-      - Build
+      branches:
+      - dev
 
 stages:
   - stage: Deploy_to_Dev 
