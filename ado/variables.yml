@@ -1,8 +1,5 @@
-parameters:
-  - name: adoRepositoryName
-
 variables:
-  pathToAdoDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.adoRepositoryName }}/ado
-  pathToInfrastructureDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.adoRepositoryName }}/infra
-  pathToSrcDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.adoRepositoryName }}/src
-  pathToInfrastructureEnvironmentDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.adoRepositoryName }}/infra/env
+  pathToAdoDirectory: $(System.DefaultWorkingDirectory)/ado
+  pathToInfrastructureDirectory: $(System.DefaultWorkingDirectory)/infra
+  pathToSrcDirectory: $(System.DefaultWorkingDirectory)/src
+  pathToInfrastructureEnvironmentDirectory: $(System.DefaultWorkingDirectory)/infra/env
