@@ -9,7 +9,7 @@ steps:
   - checkout: self
     persistCredentials: true
   - download: ${{ parameters.buildPipelineName }}
-    artifact: ${{ parameters.artifactName }}
+    artifact: 
   - template: print-env.yml
   - task: AzureCLI@2
     displayName: Install Azure CLI Logic Apps extension
