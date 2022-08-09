@@ -6,8 +6,7 @@ steps:
   - checkout: self
     persistCredentials: 'true'
   - template: print-env.yml
-  - displayName: Create Build Artifact
-    bash: |
+  - bash: |
         zip -r $(Build.ArtifactStagingDirectory)/${{ parameters.artifactName }}.zip ${{ parameters.pathToSrcDirectory }}/
   - publish: $(Build.ArtifactStagingDirectory)
     artifact: ${{ parameters.artifactName }}
