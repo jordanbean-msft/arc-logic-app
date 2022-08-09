@@ -12,9 +12,7 @@ resources:
   pipelines:
   - pipeline: build-pipeline
     source: build-logic-app
-    trigger:
-      branches:
-      - dev
+    trigger: 'true'
 
 stages:
   - stage: Deploy_to_Dev 
