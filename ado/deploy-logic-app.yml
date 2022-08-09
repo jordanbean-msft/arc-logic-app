@@ -9,6 +9,9 @@ steps:
   - checkout: self
     persistCredentials: true
   - template: print-env.yml
+  - task: DownloadPipelineArtifact@2
+    inputs:
+      artifactName: ${{ parameters.artifactName }}
   - task: PowerShell@2
     displayName: Print directory tree
     inputs:
