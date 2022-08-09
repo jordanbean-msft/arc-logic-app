@@ -8,8 +8,6 @@ parameters:
 steps:
   - checkout: self
     persistCredentials: true
-  - download: ${{ parameters.buildPipelineName }}
-    artifact: 
   - template: print-env.yml
   - task: AzureCLI@2
     displayName: Install Azure CLI Logic Apps extension
@@ -26,4 +24,4 @@ steps:
       scriptType: ps
       scriptLocation: inlineScript
       inlineScript:  |
-        az logicapp deployment source config-zip --name ${{ parameters.logicAppName }} --resource-group ${{ parameters.resourceGroupName }} --src $(Pipeline.Workspace)/${{ parameters.buildPipelineName }}/${{ parameters.artifactName}}/${{ parameters.artifactName}}.zip
+        az logicapp deployment source config-zip --name ${{ parameters.logicAppName }} --resource-group ${{ parameters.resourceGroupName }} --src $(System.ArtifactsDirectory)/${{ parameters.buildPipelineName }}/${{ parameters.artifactName}}/${{ parameters.artifactName}}.zip
