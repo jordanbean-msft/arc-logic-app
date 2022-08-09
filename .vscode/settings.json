@@ -7,7 +7,8 @@
   "yaml.schemas": {
     "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json": [
       "file:///c%3A/Users/jordanbean/source/repos/arc-logic-app/ado/deploy-runbooks.yml",
-      "file:///c%3A/Users/jordanbean/source/repos/arc-logic-app/ado/deploy.yml"
+      "file:///c%3A/Users/jordanbean/source/repos/arc-logic-app/ado/deploy.yml",
+      "file:///c%3A/Users/jordanbean/source/repos/arc-logic-app/ado/deploy-logic-app.yml"
     ]
   }
 }

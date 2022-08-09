@@ -7,8 +7,16 @@ parameters:
 
 steps:
   - checkout: self
-    persistCredentials: true
+    persistCredentials: 'true'
   - template: print-env.yml
+  - task: AzureCLI@2
+    displayName: Update Azure CLI
+    inputs:
+      azureSubscription: ${{ parameters.azureServiceConnection }}
+      scriptType: ps
+      scriptLocation: inlineScript
+      inlineScript:  |
+        az upgrade
   - task: AzureCLI@2
     displayName: Install Azure CLI Logic Apps extension
     inputs:
