@@ -1,0 +1,32 @@
+{
+  "managedApiConnections": {
+    "office365": {
+      "api": {
+        "id": "/subscriptions/dcf66641-6312-4ee1-b296-723bb0a999ba/providers/Microsoft.Web/locations/eastus/managedApis/office365"
+      },
+      "connection": {
+        "id": "/subscriptions/dcf66641-6312-4ee1-b296-723bb0a999ba/resourceGroups/rg-arcLogicApp-eus-dev/providers/Microsoft.Web/connections/office365-4"
+      },
+      "connectionRuntimeUrl": "https://1d72121ecd6a2ff0.10.common.logic-eastus.azure-apihub.net/apim/office365/006d8f61bf0043fda24dbc4a8912d925/",
+      "authentication": {
+        "type": "ActiveDirectoryOAuth",
+        "audience": "https://management.core.windows.net/",
+        "credentialType": "Secret",
+        "clientId": "@appsetting('WORKFLOWAPP_AAD_CLIENTID')",
+        "tenant": "@appsetting('WORKFLOWAPP_AAD_TENANTID')",
+        "secret": "@appsetting('WORKFLOWAPP_AAD_CLIENTSECRET')"
+      }
+    }
+  },
+  "serviceProviderConnections": {
+    "AzureBlob": {
+      "parameterValues": {
+        "connectionString": "@appsetting('AzureBlob_connectionString')"
+      },
+      "serviceProvider": {
+        "id": "/serviceProviders/AzureBlob"
+      },
+      "displayName": "storage"
+    }
+  }
+}

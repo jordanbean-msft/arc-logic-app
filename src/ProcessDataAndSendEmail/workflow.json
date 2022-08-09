@@ -1,0 +1,78 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Parse_JSON": {
+                "type": "ParseJson",
+                "inputs": {
+                    "content": "@triggerBody()",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "Subject": {
+                                "type": "string"
+                            },
+                            "Body": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "runAfter": {}
+            },
+            "Send_an_email_(V2)": {
+                "type": "ApiConnection",
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "referenceName": "office365"
+                        }
+                    },
+                    "method": "post",
+                    "body": {
+                        "To": "jordanbean@microsoft.com",
+                        "Subject": "@body('Parse_JSON')?['Subject']",
+                        "Body": "<p>Body: @{body('Parse_JSON')?['Body']}<br>\nBlob Creation Time:@{body('Uploads_a_Blob_to_Azure_Storage')?['properties']?['created']}<br>\n</p>",
+                        "Importance": "Normal"
+                    },
+                    "path": "/v2/Mail"
+                },
+                "runAfter": {
+                    "Uploads_a_Blob_to_Azure_Storage": [
+                        "Succeeded"
+                    ]
+                }
+            },
+            "Uploads_a_Blob_to_Azure_Storage": {
+                "type": "ServiceProvider",
+                "inputs": {
+                    "parameters": {
+                        "containerName": "logicapp",
+                        "blobName": "@{body('Parse_JSON')?['Subject']}.txt",
+                        "content": "@body('Parse_JSON')?['Body']"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "AzureBlob",
+                        "operationId": "uploadBlob",
+                        "serviceProviderId": "/serviceProviders/AzureBlob"
+                    }
+                },
+                "runAfter": {
+                    "Parse_JSON": [
+                        "Succeeded"
+                    ]
+                }
+            }
+        },
+        "triggers": {
+            "manual": {
+                "type": "Request",
+                "kind": "Http",
+                "inputs": {}
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {}
+    },
+    "kind": "Stateful"
+}
