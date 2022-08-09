@@ -24,6 +24,8 @@ Also included is an Azure DevOps pipeline to demonstrate the deployment process.
 - An existing [Azure Arc-enabled Kubernetes cluster, App Service Kubernetes Environment & an Azure Arc custom location](https://docs.microsoft.com/en-us/azure/app-service/manage-create-arc-environment)
 - An existing [Azure AD identity](https://docs.microsoft.com/en-us/azure/logic-apps/azure-arc-enabled-logic-apps-create-deploy-workflows?tabs=azure-cli#prerequisites) (app registration & service principal)
 
+**Note** that it is best if you run the commands (especially the `zip` command) on Linux, not Windows. This is because the deployment environment is Linux and zip files created using Windows are likely to use a backslash instead of a forward slash, which will not unzip correctly on Linux.
+
 ## Deployment
 
 1.  Run the following Azure CLI command to create all of the prerequisites for the Logic App deployment (modify the `./infra/env/dev.parameters.json` file & the command below as needed for your environment).
@@ -54,10 +56,11 @@ Also included is an Azure DevOps pipeline to demonstrate the deployment process.
 
 1.  Save the file.
 
-1.  Run the following PowerShell command to zip up the Logic App workflow definition.
+1.  Run the following bash command to zip up the Logic App workflow definition.
 
     ```shell
-    Compress-Archive ./src/* ./app.zip -Update
+    cd src
+    zip -r ../app.zip ./
     ```
 
 1.  Run the following Azure CLI command to deploy the Logic App workflow ZIP file to the Logic App hosted on a Kubernetes cluster (modify the command below as needed for your environment).
