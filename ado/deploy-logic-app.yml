@@ -16,7 +16,7 @@ steps:
       scriptType: ps
       scriptLocation: inlineScript
       inlineScript:  |
-        az upgrade
+        az upgrade --yes
   - task: AzureCLI@2
     displayName: Install Azure CLI Logic Apps extension
     inputs:
