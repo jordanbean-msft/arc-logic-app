@@ -13,7 +13,7 @@ stages:
     jobs:
     - job: Dev
       pool:
-        vmImage: windows-latest
+        vmImage: ubuntu-latest
       steps:
       - template: build-logic-app.yml
         parameters:
