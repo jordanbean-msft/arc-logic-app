@@ -1,0 +1,17 @@
+parameters:
+  - name: pathToSrcDirectory
+  - name: artifactName
+
+steps:
+  - checkout: self
+    persistCredentials: 'true'
+  - template: print-env.yml
+  - task: PowerShell@2
+    displayName: Create Build Artifact
+    inputs:
+      targetType: inline
+      workingDirectory: ${{ parameters.pathToSrcDirectory }}
+      script: |
+        Compress-Archive ./* $(Build.ArtifactStagingDirectory)/${{ parameters.artifactName }}.zip -Update
+  - publish: $(Build.ArtifactStagingDirectory)
+    artifact: ${{ parameters.artifactName }}

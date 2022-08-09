@@ -3,5 +3,11 @@
   "azureLogicAppsStandard.projectLanguage": "JavaScript",
   "azureLogicAppsStandard.projectRuntime": "~3",
   "debug.internalConsoleOptions": "neverOpen",
-  "azureFunctions.suppressProject": true
+  "azureFunctions.suppressProject": true,
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json": [
+      "file:///c%3A/Users/jordanbean/source/repos/arc-logic-app/ado/deploy-runbooks.yml",
+      "file:///c%3A/Users/jordanbean/source/repos/arc-logic-app/ado/deploy.yml"
+    ]
+  }
 }

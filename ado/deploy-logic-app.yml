@@ -1,0 +1,20 @@
+parameters:
+  - name: azureServiceConnection
+  - name: resourceGroupName
+  - name: artifactName
+  - name: logicAppName
+
+steps:
+  - checkout: self
+    persistCredentials: true
+  - download: current
+    artifact: ${{ parameters.artifactName }}
+  - template: print-env.yml
+  - task: AzureCLI@2
+    displayName: Deploy Logic App
+    inputs:
+      azureSubscription: ${{ parameters.azureServiceConnection }}
+      scriptType: ps
+      scriptLocation: inlineScript
+      inlineScript:  |
+        az logicapp deployment source config-zip --name ${{ parameters.logicAppName }} --resource-group ${{ parameters.resourceGroupName }} --src $(Pipeline.Workspace)/${{ parameters.artifactName}}.zip

@@ -1,0 +1,4 @@
+variables:
+  devEnvironmentName: dev
+  devResourceGroupName: rg-arcLogicApp-eus-dev
+  devLogicAppName: logic-arcLogicAppCli-eus-dev

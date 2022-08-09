@@ -1,0 +1,8 @@
+variables:
+  System.Debug: true
+  adoAccountName: jordanbean-msft-demo-org
+  serviceConnectionName: jordanbean-aia
+  subscriptionId: dcf66641-6312-4ee1-b296-723bb0a999ba
+  tenantId: 72f988bf-86f1-41af-91ab-2d7cd011db47
+  adoRepositoryName: arc-logic-app
+  artifactName: app

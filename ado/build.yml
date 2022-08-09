@@ -1,0 +1,23 @@
+name: build-logic-app
+
+variables:
+  - template: env/global.parameters.yml
+  - template: env/dev.parameters.yml
+  - template: variables.yml
+    parameters:
+      adoRepositoryName: ${{ variables.adoRepositoryName }}
+
+trigger:
+  - dev
+
+stages:
+  - stage: Build
+    jobs:
+    - job: Dev
+      pool:
+        vmImage: windows-latest
+      steps:
+      - template: build-logic-app.yml
+        parameters:
+          pathToSrcDirectory: ${{ variables.pathToSrcDirectory }}
+          artifactName: ${{ variables.artifactName }}
