@@ -25,7 +25,7 @@ steps:
     displayName: Install Azure CLI Logic Apps extension
     inputs:
       azureSubscription: ${{ parameters.azureServiceConnection }}
-      scriptType: ps
+      scriptType: bash
       scriptLocation: inlineScript
       inlineScript:  |
         az extension add --yes --source "https://aka.ms/logicapp-latest-py2.py3-none-any.whl"
@@ -33,7 +33,7 @@ steps:
     displayName: Deploy Logic App
     inputs:
       azureSubscription: ${{ parameters.azureServiceConnection }}
-      scriptType: ps
+      scriptType: bash
       scriptLocation: inlineScript
       inlineScript:  |
         az logicapp deployment source config-zip --name ${{ parameters.logicAppName }} --resource-group ${{ parameters.resourceGroupName }} --src $(Agent.BuildDirectory)/${{ parameters.buildPipelineName }}/${{ parameters.artifactName}}/${{ parameters.artifactName}}.zip --debug
