@@ -3,11 +3,12 @@ parameters:
   - name: resourceGroupName
   - name: artifactName
   - name: logicAppName
+  - name: buildPipelineName
 
 steps:
   - checkout: self
     persistCredentials: true
-  - download: build-pipeline
+  - download: ${{ parameters.buildPipelineName }}
     artifact: ${{ parameters.artifactName }}
   - template: print-env.yml
   - task: AzureCLI@2
@@ -17,4 +18,4 @@ steps:
       scriptType: ps
       scriptLocation: inlineScript
       inlineScript:  |
-        az logicapp deployment source config-zip --name ${{ parameters.logicAppName }} --resource-group ${{ parameters.resourceGroupName }} --src $(Pipeline.Workspace)/${{ parameters.artifactName}}.zip
+        az logicapp deployment source config-zip --name ${{ parameters.logicAppName }} --resource-group ${{ parameters.resourceGroupName }} --src $(Pipeline.Workspace)/${{ parameters.buildPipelineName }}/${{ parameters.artifactName}}/${{ parameters.artifactName}}.zip

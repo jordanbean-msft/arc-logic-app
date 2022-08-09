@@ -33,3 +33,4 @@ stages:
                 resourceGroupName: ${{ variables.devResourceGroupName }}
                 artifactName: ${{ variables.artifactName }}
                 logicAppName: ${{ variables.devLogicAppName }}
+                buildPipelineName: build-pipeline
