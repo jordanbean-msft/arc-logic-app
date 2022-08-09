@@ -9,14 +9,18 @@ steps:
   - checkout: self
     persistCredentials: 'true'
   - template: print-env.yml
-  - task: AzureCLI@2
-    displayName: Update Azure CLI
-    inputs:
-      azureSubscription: ${{ parameters.azureServiceConnection }}
-      scriptType: ps
-      scriptLocation: inlineScript
-      inlineScript:  |
-        az upgrade --yes
+  - script: |
+      az --version
+      curl -sL https://packages.microsoft.com/keys/microsoft.asc |
+      gpg --dearmor |
+      sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+      AZ_REPO=$(lsb_release -cs)
+      echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" |
+      sudo tee /etc/apt/sources.list.d/azure-cli.list
+      sudo apt-get update
+      az upgrade --yes
+      az --version
+    displayName: Upgrade Azure CLI
   - task: AzureCLI@2
     displayName: Install Azure CLI Logic Apps extension
     inputs:

@@ -19,7 +19,7 @@ stages:
     jobs:
     - deployment: Dev
       pool:
-        vmImage: windows-latest
+        vmImage: ubuntu-latest
       environment: ${{ variables.devEnvironmentName }}
       strategy:
         runOnce:
