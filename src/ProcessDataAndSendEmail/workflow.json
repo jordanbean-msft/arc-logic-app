@@ -18,7 +18,11 @@
                         }
                     }
                 },
-                "runAfter": {}
+                "runAfter": {
+                    "Initialize_variable_-_Email_Address": [
+                        "Succeeded"
+                    ]
+                }
             },
             "Send_an_email_(V2)": {
                 "type": "ApiConnection",
@@ -30,7 +34,7 @@
                     },
                     "method": "post",
                     "body": {
-                        "To": "jordanbean@microsoft.com",
+                        "To": "@variables('Email Address')",
                         "Subject": "@body('Parse_JSON')?['Subject']",
                         "Body": "<p>Body: @{body('Parse_JSON')?['Body']}<br>\nBlob Creation Time:@{body('Upload_a_Blob_to_Azure_Storage')?['properties']?['created']}<br>\n</p>",
                         "Importance": "Normal"
@@ -63,6 +67,19 @@
                         "Succeeded"
                     ]
                 }
+            },
+            "Initialize_variable_-_Email_Address": {
+                "type": "InitializeVariable",
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "Email Address",
+                            "type": "string",
+                            "value": "jordanbean@microsoft.com"
+                        }
+                    ]
+                },
+                "runAfter": {}
             }
         },
         "triggers": {
