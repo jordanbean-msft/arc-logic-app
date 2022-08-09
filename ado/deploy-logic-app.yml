@@ -9,16 +9,10 @@ steps:
   - checkout: self
     persistCredentials: true
   - template: print-env.yml
-  - task: DownloadPipelineArtifact@2
-    inputs:
-      source: specific
-      project: arc-logic-app
-      pipeline: 14
-      artifactName: ${{ parameters.artifactName }}
   - task: PowerShell@2
     displayName: Print directory tree
     inputs:
-      workingDirectory: $(System.ArtifactsDirectory)
+      workingDirectory: $(Agent.BuildDirectory)
       targetType: inline
       script: |
         tree /F
