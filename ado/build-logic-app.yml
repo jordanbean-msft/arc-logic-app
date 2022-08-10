@@ -1,0 +1,13 @@
+parameters:
+  - name: pathToSrcDirectory
+  - name: artifactName
+
+steps:
+  - checkout: self
+    persistCredentials: 'true'
+  - template: print-env.yml
+  - bash: |
+        cd ${{ parameters.pathToSrcDirectory }}
+        zip -r $(Build.ArtifactStagingDirectory)/${{ parameters.artifactName }}.zip ./
+  - publish: $(Build.ArtifactStagingDirectory)
+    artifact: ${{ parameters.artifactName }}

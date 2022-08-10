@@ -1,0 +1,39 @@
+parameters:
+  - name: azureServiceConnection
+  - name: resourceGroupName
+  - name: artifactName
+  - name: logicAppName
+  - name: buildPipelineName
+
+steps:
+  - checkout: self
+    persistCredentials: 'true'
+  - template: print-env.yml
+  - script: |
+      az --version
+      curl -sL https://packages.microsoft.com/keys/microsoft.asc |
+      gpg --dearmor |
+      sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+      AZ_REPO=$(lsb_release -cs)
+      echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" |
+      sudo tee /etc/apt/sources.list.d/azure-cli.list
+      sudo apt-get update
+      az upgrade --yes
+      az --version
+    displayName: Upgrade Azure CLI
+  - task: AzureCLI@2
+    displayName: Install Azure CLI Logic Apps extension
+    inputs:
+      azureSubscription: ${{ parameters.azureServiceConnection }}
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript:  |
+        az extension add --yes --source "https://aka.ms/logicapp-latest-py2.py3-none-any.whl"
+  - task: AzureCLI@2
+    displayName: Deploy Logic App
+    inputs:
+      azureSubscription: ${{ parameters.azureServiceConnection }}
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript:  |
+        az logicapp deployment source config-zip --name ${{ parameters.logicAppName }} --resource-group ${{ parameters.resourceGroupName }} --src $(Agent.BuildDirectory)/${{ parameters.buildPipelineName }}/${{ parameters.artifactName}}/${{ parameters.artifactName}}.zip --debug

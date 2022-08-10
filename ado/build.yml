@@ -1,0 +1,21 @@
+name: build-logic-app
+
+variables:
+  - template: env/global.parameters.yml
+  - template: env/dev.parameters.yml
+  - template: variables.yml
+
+trigger:
+  - dev
+
+stages:
+  - stage: Build
+    jobs:
+    - job: Dev
+      pool:
+        vmImage: ubuntu-latest
+      steps:
+      - template: build-logic-app.yml
+        parameters:
+          pathToSrcDirectory: ${{ variables.pathToSrcDirectory }}
+          artifactName: ${{ variables.artifactName }}

@@ -1,0 +1,34 @@
+name: deploy-logic-app
+
+variables:
+  - template: env/global.parameters.yml
+  - template: env/dev.parameters.yml
+  - template: variables.yml
+
+trigger: 
+  - none
+
+resources:
+  pipelines:
+  - pipeline: build-pipeline
+    source: build-logic-app
+    trigger: 'true'
+
+stages:
+  - stage: Deploy_to_Dev 
+    jobs:
+    - deployment: Dev
+      pool:
+        vmImage: ubuntu-latest
+      environment: ${{ variables.devEnvironmentName }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: deploy-logic-app.yml
+              parameters:
+                azureServiceConnection: ${{ variables.serviceConnectionName }}
+                resourceGroupName: ${{ variables.devResourceGroupName }}
+                artifactName: ${{ variables.artifactName }}
+                logicAppName: ${{ variables.devLogicAppName }}
+                buildPipelineName: build-pipeline

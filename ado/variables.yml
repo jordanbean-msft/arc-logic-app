@@ -1,0 +1,5 @@
+variables:
+  pathToAdoDirectory: $(System.DefaultWorkingDirectory)/ado
+  pathToInfrastructureDirectory: $(System.DefaultWorkingDirectory)/infra
+  pathToSrcDirectory: $(System.DefaultWorkingDirectory)/src
+  pathToInfrastructureEnvironmentDirectory: $(System.DefaultWorkingDirectory)/infra/env
