@@ -91,4 +91,7 @@ az connectedk8s proxy -n eb-k3s-001 -g rg-arcLogicApp-eus-dev --token $TOKEN
 
 ## Links
 
+- [Azure Arc](https://azure.microsoft.com/en-us/services/azure-arc/)
+- [Azure Arc-enabled Logic App](https://docs.microsoft.com/en-us/azure/logic-apps/azure-arc-enabled-logic-apps-overview)
+- [Azure Arc-enabled Kubernetes Cluster for App Service, Functions, and Logic Apps](https://docs.microsoft.com/en-us/azure/app-service/manage-create-arc-environment?tabs=bash)
 - [Connect to Azure Arc-enabled Kubernetes cluster](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/cluster-connect?tabs=azure-cli)
